@@ -1,0 +1,148 @@
+            <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Intelligent Expense Tracker</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--text:#1c2030;--muted:#5d6479;--accent:#3b5bdb;--accent2:#e8edff;--line:#e2e5ef;--warn:#c92a2a;--ok:#2b8a3e;--code:#10142a;--codet:#d9e0ff}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1220;--card:#181c30;--text:#eceef8;--muted:#9aa2bd;--accent:#8fa5ff;--accent2:#232a4d;--line:#2a3050;--warn:#ff8787;--ok:#69db7c}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.55}
+.wrap{max-width:900px;margin:0 auto;padding:0 18px}
+header.hero{padding:44px 0 28px;text-align:center}
+.tag{display:inline-block;background:var(--accent2);color:var(--accent);font-size:13px;padding:4px 12px;border-radius:99px;font-weight:600}
+h1{font-size:clamp(28px,6vw,44px);margin:14px 0 8px;line-height:1.15}
+.sub{color:var(--muted);max-width:560px;margin:0 auto 20px}
+.btn{display:inline-block;background:var(--accent);color:#fff;border:0;padding:10px 18px;border-radius:10px;font-size:15px;font-weight:600;text-decoration:none;cursor:pointer}
+section{padding:26px 0}
+h2{font-size:24px;margin:0 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.card h3{margin:0 0 6px;font-size:16px}
+.card p{margin:0;color:var(--muted);font-size:14px}
+form{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:14px}
+input,select{width:100%;padding:10px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-size:15px}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:420px}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-weight:600}
+td.n,th.n{text-align:right}
+.del{background:none;border:0;color:var(--warn);cursor:pointer;font-size:16px}
+.bar{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:14px}
+.bar b{width:110px;font-weight:600}
+.bar .t{flex:1;height:10px;background:var(--accent2);border-radius:6px;overflow:hidden}
+.bar .t i{display:block;height:100%;background:var(--accent)}
+.bar span{width:84px;text-align:right;color:var(--muted)}
+ul.a{list-style:none;padding:0;margin:0}
+ul.a li{padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+ul.a li:last-child{border:0}
+.warn{color:var(--warn);font-weight:600}.ok{color:var(--ok);font-weight:600}
+.budget{display:flex;gap:8px;align-items:center;margin-bottom:12px;font-size:14px;flex-wrap:wrap}
+.budget input{width:130px}
+pre{background:var(--code);color:var(--codet);padding:14px;border-radius:12px;overflow-x:auto;font-size:13px;line-height:1.5;margin:0}
+ol.steps{padding-left:20px;margin:0}ol.steps li{margin:6px 0}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:26px 0 34px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <span class="tag">C Programming Mini Project</span>
+  <h1>Intelligent Expense Tracker</h1>
+  <p class="sub">A C program that records your spending, saves it to a file and analyses your spending patterns. Try the live demo below, which works exactly like the C version.</p>
+  <a class="btn" href="#demo">Try the demo</a>
+</header>
+
+<section>
+  <h2>Features</h2>
+  <div class="grid">
+    <div class="card"><h3>📝 Record expenses</h3><p>Add date, category, description and amount, with input validation.</p></div>
+    <div class="card"><h3>💾 File handling</h3><p>Data is read from and saved to <code>expenses.txt</code>, so it survives closing the program.</p></div>
+    <div class="card"><h3>📊 Pattern analysis</h3><p>Category split, monthly trends, daily average and month-end projection.</p></div>
+    <div class="card"><h3>🚨 Smart alerts</h3><p>Budget warnings at 80% and when exceeded, plus unusual expense detection.</p></div>
+  </div>
+</section>
+
+<section id="demo">
+  <h2>Live demo</h2>
+  <div class="card">
+    <form id="f">
+      <input type="date" id="d" required>
+      <select id="c"><option>Food</option><option>Transport</option><option>Shopping</option><option>Bills</option><option>Entertainment</option><option>Other</option></select>
+      <input id="s" placeholder="Description" required maxlength="40">
+      <input id="m" type="number" min="1" step="0.01" placeholder="Amount (Rs.)" required>
+      <button class="btn" type="submit">Add expense</button>
+    </form>
+    <div class="scroll"><table><thead><tr><th>Date</th><th>Category</th><th>Description</th><th class="n">Amount</th><th></th></tr></thead><tbody id="rows"></tbody></table></div>
+  </div>
+
+  <div class="grid" style="margin-top:12px">
+    <div class="card"><h3>Spending by category</h3><div id="cats"></div></div>
+    <div class="card"><h3>Smart analysis</h3>
+      <div class="budget">Monthly budget Rs. <input id="b" type="number" min="0" value="5000"></div>
+      <ul class="a" id="an"></ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>How it is built</h2>
+  <div class="card">
+    <p style="color:var(--muted);margin-top:0">Three source files, compiled into a dynamic library by a Makefile, as the project guidelines require.</p>
+    <ol class="steps">
+      <li><code>expense.h</code> declares the functions.</li>
+      <li><code>expense.c</code> defines them and becomes <code>libexpense.so</code>.</li>
+      <li><code>main.c</code> shows the menu and calls the library.</li>
+    </ol>
+    <pre style="margin-top:14px">make          # builds libexpense.so and tracker
+./tracker     # run the program
+make clean    # remove generated files</pre>
+  </div>
+</section>
+<footer>Intelligent Expense Tracker with Spending Pattern Analysis · C mini project</footer>
+</div>
+
+<script>
+var data=[
+["2026-09-02","Food","Groceries",850],["2026-09-05","Transport","Bus pass",400],["2026-09-10","Bills","Electricity bill",1800],
+["2026-10-01","Food","Groceries",900],["2026-10-03","Shopping","Shoes",2500],["2026-10-12","Food","Snacks",150],["2026-10-18","Food","Dinner out",3200],
+["2026-11-02","Food","Groceries",950],["2026-11-05","Transport","Metro card",500],["2026-11-09","Shopping","Headphones",2200],["2026-11-12","Food","Cafe",250],["2026-11-15","Bills","Phone recharge",399]
+].map(function(r){return{date:r[0],cat:r[1],desc:r[2],amt:r[3]}});
+var CATS=["Food","Transport","Shopping","Bills","Entertainment","Other"];
+function $(i){return document.getElementById(i)}
+function rs(n){return "Rs."+n.toFixed(2)}
+function esc(t){var e=document.createElement("div");e.textContent=t;return e.innerHTML}
+function render(){
+  data.sort(function(a,b){return a.date<b.date?-1:1});
+  $("rows").innerHTML=data.map(function(e,i){return "<tr><td>"+e.date+"</td><td>"+e.cat+"</td><td>"+esc(e.desc)+"</td><td class='n'>"+e.amt.toFixed(2)+"</td><td><button class='del' data-i='"+i+"' aria-label='Delete'>×</button></td></tr>"}).join("");
+  var tot={},cnt={},grand=0;CATS.forEach(function(c){tot[c]=0;cnt[c]=0});
+  data.forEach(function(e){tot[e.cat]+=e.amt;cnt[e.cat]++;grand+=e.amt});
+  $("cats").innerHTML=grand?CATS.map(function(c){var p=tot[c]*100/grand;return "<div class='bar'><b>"+c+"</b><div class='t'><i style='width:"+p+"%'></i></div><span>"+p.toFixed(1)+"%</span></div>"}).join(""):"No data.";
+  var a=$("an");
+  if(!data.length){a.innerHTML="<li>Add some expenses first.</li>";return}
+  var top=CATS.reduce(function(x,y){return tot[y]>tot[x]?y:x}),mx=data.reduce(function(x,y){return y.amt>x.amt?y:x});
+  var latest=data.reduce(function(x,y){return y.date.slice(0,7)>x?y.date.slice(0,7):x},"");
+  var mt=0,md=1;data.forEach(function(e){if(e.date.slice(0,7)===latest){mt+=e.amt;md=Math.max(md,+e.date.slice(8))}});
+  var proj=mt/md*30,bud=+$("b").value,L=[];
+  L.push("Average per transaction: <b>"+rs(grand/data.length)+"</b>");
+  L.push("Top category: <b>"+top+"</b> ("+(tot[top]*100/grand).toFixed(1)+"% of total)");
+  L.push("Biggest expense: <b>"+rs(mx.amt)+"</b> ("+esc(mx.desc)+", "+mx.date+")");
+  L.push("Latest month ("+latest+"): <b>"+rs(mt)+"</b>, about "+rs(mt/md)+" per day");
+  L.push("Projected full month: <b>"+rs(proj)+"</b>");
+  if(bud>0){var u=mt*100/bud;
+    L.push("Budget used: <b>"+u.toFixed(1)+"%</b> — "+(u>=100?"<span class='warn'>Exceeded by "+rs(mt-bud)+"!</span>":u>=80?"<span class='warn'>Over 80% used, be careful.</span>":proj>bud?"<span class='warn'>On this pace you will cross the budget.</span>":"<span class='ok'>Within budget.</span>"))}
+  var un=data.filter(function(e){return cnt[e.cat]>=3&&e.amt>2*tot[e.cat]/cnt[e.cat]});
+  L.push("Unusual expenses: "+(un.length?un.map(function(e){return "<b>"+esc(e.desc)+"</b> ("+rs(e.amt)+")"}).join(", "):"none"));
+  a.innerHTML=L.map(function(x){return "<li>"+x+"</li>"}).join("");
+}
+$("f").addEventListener("submit",function(ev){ev.preventDefault();
+  data.push({date:$("d").value,cat:$("c").value,desc:$("s").value.trim(),amt:parseFloat($("m").value)});
+  $("s").value="";$("m").value="";render()});
+$("rows").addEventListener("click",function(ev){var i=ev.target.getAttribute("data-i");if(i!==null){data.splice(+i,1);render()}});
+$("b").addEventListener("input",render);
+$("d").value=new Date().toISOString().slice(0,10);
+render();
+</script>
+</body>
+</html>

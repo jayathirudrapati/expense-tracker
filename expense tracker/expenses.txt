@@ -1,0 +1,17 @@
+2026-09-02|Food|Groceries|850.00
+2026-09-05|Transport|Bus pass|400.00
+2026-09-10|Bills|Electricity bill|1800.00
+2026-09-14|Entertainment|Movie|300.00
+2026-09-20|Food|Restaurant|600.00
+2026-10-01|Food|Groceries|900.00
+2026-10-03|Shopping|Shoes|2500.00
+2026-10-08|Transport|Auto|120.00
+2026-10-12|Food|Snacks|150.00
+2026-10-15|Bills|Internet bill|700.00
+2026-10-18|Food|Dinner out|3200.00
+2026-10-22|Entertainment|Concert|1500.00
+2026-11-05|Transport|Metro card|500.00
+2026-11-09|Shopping|Headphones|2200.00
+2026-11-12|Food|Cafe|250.00
+2026-11-15|Bills|Phone recharge|399.00
+2026-01-08|Food|snacks|60.00

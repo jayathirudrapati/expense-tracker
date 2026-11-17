@@ -1,0 +1,26 @@
+EXPENSE TRACKER REPORT
+
+=== Spending by Category ===
+Food           Rs.  6900.00   39.8%  #######
+Transport      Rs.  1020.00    5.9%  #
+Shopping       Rs.  4700.00   27.1%  #####
+Bills          Rs.  2899.00   16.7%  ###
+Entertainment  Rs.  1800.00   10.4%  ##
+Other          Rs.     0.00    0.0%  
+TOTAL          Rs. 17319.00
+
+=== Monthly Totals ===
+2026-09  Rs.  3950.00
+2026-10  Rs.  9070.00  (up Rs.5120.00 vs previous month)
+2026-11  Rs.  4299.00  (down Rs.4771.00 vs previous month)
+
+=== Smart Spending Analysis ===
+1. Average per transaction : Rs.1018.76
+2. Top spending category   : Food (Rs.6900.00, 39.8% of total)
+3. Biggest single expense  : Rs.3200.00 on 2026-10-18 (Dinner out)
+4. Latest month (2026-11)    : Rs.4299.00 spent, about Rs.286.60 per day
+5. Projected full month    : Rs.8598.00
+6. Budget (Rs.5000.00)     : 86.0% used
+   WARNING: You have used over 80% of your budget.
+7. Unusual expenses (over 2x their category average):
+   - 2026-10-18  Food           Dinner out             Rs.3200.00
